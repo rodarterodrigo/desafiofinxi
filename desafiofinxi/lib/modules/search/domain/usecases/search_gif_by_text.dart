@@ -10,7 +10,7 @@ abstract class ISearchGifByText{
 class SearchGifByText implements ISearchGifByText{
   final IGifSearchRepository repository;
 
-  SearchGifByText(this.repository);
+  SearchGifByText(this.repository):assert(repository != null);
 
   @override
   Future<Either<FailureSearch, List<Gif>>> searchGif(String searchText) async{
@@ -22,4 +22,3 @@ class SearchGifByText implements ISearchGifByText{
     }
   }
 }
-

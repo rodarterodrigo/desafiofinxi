@@ -7,7 +7,7 @@ import 'package:desafiofinxi/modules/search/infra/datasources/gif_search_datasou
 class GifSearchRepository implements IGifSearchRepository{
   final IGifSearchDatasource datasource;
 
-  GifSearchRepository(this.datasource);
+  GifSearchRepository(this.datasource):assert(datasource != null);
 
   @override
   Future<Either<FailureSearch, List<Gif>>> searchGif(String searchText) async{

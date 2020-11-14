@@ -13,16 +13,16 @@ class GifModel extends Gif{
   static GifModel fromMap(Map<String, dynamic> map){
     if(map == null) return null;
     return GifModel(
-      name:map['name'],
-      image: map['image'],
+      name:map['title'],
+      image: map['images']['original']['url'],
     );
   }
 
   static GifModel toJson(dynamic map){
     if(map == null) return null;
     return GifModel(
-      name:map['name'],
-      image: map['image'],
+      name:map['title'],
+      image: map['images']['original']['url'],
     );
   }
 }
