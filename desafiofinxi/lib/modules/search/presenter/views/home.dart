@@ -1,18 +1,15 @@
-import 'package:desafiofinxi/modules/search/presenter/blocs/gif_bloc.dart';
-import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
-import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/navigation_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 class Home extends StatefulWidget {
-  String searchGif;
-  Home({this.searchGif = "star wars"});
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
-  final gifBloc = Modular.get<GifBloc>();
+  final navigation = Modular.get<Navigation>();
+  final navigationBloc = Modular.get<NavigationBloc>();
 
   @override
   void initState(){
@@ -21,43 +18,42 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose(){
-    gifBloc.close();
+    navigationBloc.close();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    gifBloc.add(SearchGifEvent(widget.searchGif));
     return StreamBuilder(
-      initialData: LoadingState,
-      stream: gifBloc,
+      stream: navigationBloc,
       builder: (context, snapshot){
-        final state = gifBloc.state;
-        if(state is ErrorState) return Center(child: Text(state.failureSearch.message),);
-        if(state is LoadingState) return Center(child: CircularProgressIndicator());
-        else {
-          final list = (state as LoadedSucessState).gifList;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("Giphy Wars"),
+        return Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.white,
+              opacity: 1,
             ),
-            body:  Container(
-              child: GridView.count(
-                  crossAxisCount: 2,
-                  children: List.generate(list.length, (index) {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      height: MediaQuery.of(context).size.height /3,
-                      width: MediaQuery.of(context).size.height /2,
-                      child: Image.network(list[index].image, fit: BoxFit.fill,),
-                    );
-                  }
-                  )
+            title: Text("Giphy Wars"),
+            centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () async => await showSearch(context: context, delegate: null),
               ),
-            ),
-          );
-        }
+            ],
+          ),
+          body: Container(
+            padding: EdgeInsets.all(16),
+            child: navigation.viewList(navigationBloc.index, "star wars"),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex:0,
+            onTap: (ind) => navigationBloc.add(ind),
+            type: BottomNavigationBarType.fixed,
+            fixedColor: Colors.white,
+            items: navigation.bottonNavigation(),
+          ),
+        );
       },
     );
   }

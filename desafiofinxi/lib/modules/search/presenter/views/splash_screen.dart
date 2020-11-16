@@ -19,7 +19,11 @@ class _SplashPageState extends State<SplashPage> {
         ),
         Container(
           alignment: Alignment.center,
-          child: Center(child: Image.asset("lib/assets/images/vader.gif"),
+          child: Container(
+            color: Colors.black,
+            child: Center(
+              child: Image.asset("lib/assets/images/intro.gif"),
+            ),
           ),
         ),
       ],
