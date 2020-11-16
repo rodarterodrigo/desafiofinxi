@@ -25,10 +25,10 @@ class LoadingState extends GifState {
 }
 
 class LoadedSucessState extends GifState {
-  final List<Gif> gif;
-  const LoadedSucessState(this.gif);
+  final List<Gif> gifList;
+  const LoadedSucessState(this.gifList);
   @override
-  List<Object> get props => [gif];
+  List<Object> get props => [gifList];
 }
 
 class ErrorState extends GifState {

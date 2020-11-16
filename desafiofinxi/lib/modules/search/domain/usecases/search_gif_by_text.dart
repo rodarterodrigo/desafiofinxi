@@ -15,10 +15,10 @@ class SearchGifByText implements ISearchGifByText{
   @override
   Future<Either<FailureSearch, List<Gif>>> searchGif(String searchText) async{
     try {
-      return searchText == null? Left(InvalidTextError()): await repository.searchGif(searchText);
+      return searchText == null? Left(InvalidTextError(message: "A busca não pode ser nula")): await repository.searchGif(searchText);
     }
     catch(e){
-      return Left(InvalidTextError(message: e));
+      return Left(InvalidTextError(message: "A busca não pode ser nula"));
     }
   }
 }

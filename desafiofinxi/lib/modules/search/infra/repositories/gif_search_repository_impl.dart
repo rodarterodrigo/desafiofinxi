@@ -12,13 +12,13 @@ class GifSearchRepository implements IGifSearchRepository{
   @override
   Future<Either<FailureSearch, List<Gif>>> searchGif(String searchText) async{
     try{
-      return searchText == null? Left(DataSourceError()): Right(await datasource.gifSearch(searchText));
+      return searchText == null? Left(DataSourceError(message: "A busca não pode ser nula")): Right(await datasource.gifSearch(searchText));
     }
     on DataSourceError catch(Exception){
     return Left(Exception);
     }
     catch(e){
-    return Left(DataSourceError(message: e));
+    return Left(DataSourceError(message: "Algo errado ocorreu"));
     }
   }
 }

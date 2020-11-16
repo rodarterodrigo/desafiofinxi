@@ -14,6 +14,6 @@ class GiphyDatasource implements IGifSearchDatasource{
 
     final response = await dio.get(Settings.baseUrlPrefix +"?api_key=${Settings.giphyApiKey}&q=${searchText}");
 
-    return response.statusCode == 200? (response.data['data'] as List).map((map) => GifModel.fromMap(map)).toList(): throw DataSourceError();
+    return response.statusCode == 200? (response.data['data'] as List).map((map) => GifModel.fromMap(map)).toList(): throw DataSourceError(message: "Algo errado ocorreu");
   }
 }

@@ -4,9 +4,9 @@ abstract class GifEvent extends Equatable {
   const GifEvent();
 }
 
-class LoadingSucessGifEvent extends GifEvent {
+class SearchGifEvent extends GifEvent {
   final String searchText;
-  LoadingSucessGifEvent(this.searchText);
+  SearchGifEvent(this.searchText);
   @override
   // TODO: implement props
   List<Object> get props => [];
