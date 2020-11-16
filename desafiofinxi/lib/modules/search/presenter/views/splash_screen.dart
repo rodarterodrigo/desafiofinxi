@@ -1,64 +1,28 @@
-import 'package:desafiofinxi/modules/search/presenter/blocs/gif_bloc.dart';
-import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
-import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
+import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-class SplashScreen extends StatefulWidget {
-  String searchGif;
-  SplashScreen({this.searchGif = "star wars"});
+import 'package:splashscreen/splashscreen.dart';
+class SplashPage extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-
-  final gifBloc = Modular.get<GifBloc>();
-
-  @override
-  void initState(){
-    super.initState();
-  }
-
-  @override
-  void dispose(){
-    gifBloc.close();
-    super.dispose();
-  }
-
-
+class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    gifBloc.add(SearchGifEvent(widget.searchGif));
-    return StreamBuilder(
-      initialData: LoadingState,
-      stream: gifBloc,
-      builder: (context, snapshot){
-        final state = gifBloc.state;
-        if(state is ErrorState) return Center(child: Text(state.failureSearch.message),);
-        if(state is LoadingState) return Center(child: CircularProgressIndicator());
-        else {
-          final list = (state as LoadedSucessState).gifList;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("Giphy Wars"),
-            ),
-            body:  Container(
-              child: GridView.count(
-                  crossAxisCount: 2,
-                  children: List.generate(list.length, (index) {
-                      return Container(
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height /3,
-                        width: MediaQuery.of(context).size.height /2,
-                        child: Image.network(list[index].image, fit: BoxFit.fill,),
-                      );
-                    }
-                  )
-              ),
-            ),
-          );
-        }
-      },
+    return Stack(
+      children: <Widget>[
+        SplashScreen(
+          seconds: 5,
+          backgroundColor: Color.fromRGBO(20, 20, 26, 1),
+          navigateAfterSeconds: Routes.HOME,
+          loaderColor: Colors.transparent,
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Center(child: Image.asset("lib/assets/images/vader.gif"),
+          ),
+        ),
+      ],
     );
   }
 }

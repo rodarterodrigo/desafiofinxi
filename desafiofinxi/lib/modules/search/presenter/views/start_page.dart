@@ -3,14 +3,14 @@ import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-class Home extends StatefulWidget {
+class StartPage extends StatefulWidget {
   String searchGif;
-  Home({this.searchGif = "star wars"});
+  StartPage({this.searchGif = "star wars"});
   @override
-  _HomeState createState() => _HomeState();
+  _StartPageState createState() => _StartPageState();
 }
 
-class _HomeState extends State<Home> {
+class _StartPageState extends State<StartPage> {
 
   final gifBloc = Modular.get<GifBloc>();
 

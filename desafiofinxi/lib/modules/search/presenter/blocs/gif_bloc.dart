@@ -16,13 +16,13 @@ class GifBloc extends Bloc<GifEvent, GifState> {
 
   @override
   Stream<GifState> mapEventToState(GifEvent event) async* {
-    yield LoadingState();
     if (event is SearchGifEvent) {
       yield* _mapGifsToState(event);
     }
   }
 
   Stream<GifState> _mapGifsToState(SearchGifEvent event) async* {
+    yield LoadingState();
     this.search = event.searchText;
     final result = (await this.usecase.searchGif(event.searchText));
     yield result.fold((l) => ErrorState(l), (r) => LoadedSucessState(r));

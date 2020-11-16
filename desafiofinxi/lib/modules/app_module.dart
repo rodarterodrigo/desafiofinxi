@@ -28,7 +28,7 @@ class AppModule extends MainModule{
   @override
   // TODO: implement routers
   List<ModularRouter> get routers => [
-    ModularRouter(Routes.INITIAL, child: (context, args) => SplashScreen()),
+    ModularRouter(Routes.INITIAL, child: (context, args) => SplashPage()),
     ModularRouter(Routes.HOME, child: (context, args) => Home()),
   ];
 
