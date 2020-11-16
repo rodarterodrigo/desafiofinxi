@@ -1,5 +1,7 @@
 import 'package:desafiofinxi/modules/search/presenter/blocs/navigation_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/events/navigation_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/navigation/navigation.dart';
+import 'package:desafiofinxi/modules/search/presenter/search_delegate/custom_search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 class Home extends StatefulWidget {
@@ -38,17 +40,17 @@ class _HomeState extends State<Home> {
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.search),
-                onPressed: () async => await showSearch(context: context, delegate: null),
+                onPressed: () async => navigationBloc.add(MapSearchEvent(await showSearch(context: context, delegate: CustomSearchDelegate()))),
               ),
             ],
           ),
           body: Container(
             padding: EdgeInsets.all(16),
-            child: navigation.viewList(navigationBloc.index, "star wars"),
+            child: navigation.viewList(navigationBloc.index, navigationBloc.search),
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex:0,
-            onTap: (ind) => navigationBloc.add(ind),
+            onTap: (ind) => navigationBloc.add(MapIndexEvent(ind)),
             type: BottomNavigationBarType.fixed,
             fixedColor: Colors.white,
             items: navigation.bottonNavigation(),

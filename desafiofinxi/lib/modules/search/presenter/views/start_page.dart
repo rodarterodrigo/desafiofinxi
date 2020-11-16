@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 class StartPage extends StatefulWidget {
   String searchGif;
-  StartPage({this.searchGif = "star wars"});
+  StartPage({this.searchGif});
   @override
   _StartPageState createState() => _StartPageState();
 }
@@ -17,6 +17,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void initState(){
+    gifBloc.add(SearchGifEvent(widget.searchGif));
     super.initState();
   }
 
@@ -28,7 +29,6 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
-    gifBloc.add(SearchGifEvent(widget.searchGif));
     return StreamBuilder(
       initialData: LoadingState,
       stream: gifBloc,

@@ -12,7 +12,7 @@ class Navigation implements INavigation{
   @override
   Widget viewList(int index, String search) {
     List<Widget> views = [
-      StartPage(searchGif: search = "star wars",),
+      StartPage(searchGif: search = "star wars"),
       GifLibraryPage(),
     ];
     return views[index];

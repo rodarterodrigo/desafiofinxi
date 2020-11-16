@@ -31,7 +31,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   @override
   Stream<Transition<GifEvent, GifState>> transformEvents(
       Stream<GifEvent> events, transitionFn) {
-    events = events.debounceTime(Duration(milliseconds: 500));
+    events = events.debounceTime(Duration(milliseconds: 900));
     return super.transformEvents(events, transitionFn);
   }
 }
