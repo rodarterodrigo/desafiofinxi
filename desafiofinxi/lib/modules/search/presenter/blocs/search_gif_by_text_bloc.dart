@@ -10,10 +10,6 @@ class GifBloc extends Bloc<GifEvent, GifState> {
 
   GifBloc(this.usecase):super(LoadingState());
 
-  String _search = "";
-  get search => _search;
-  set search(value) => _search = value;
-
   @override
   Stream<GifState> mapEventToState(GifEvent event) async* {
     if (event is SearchGifEvent) {
@@ -23,7 +19,6 @@ class GifBloc extends Bloc<GifEvent, GifState> {
 
   Stream<GifState> _mapGifsToState(SearchGifEvent event) async* {
     yield LoadingState();
-    this.search = event.searchText;
     final result = (await this.usecase.searchGif(event.searchText));
     yield result.fold((l) => ErrorState(l), (r) => LoadedSucessState(r));
   }

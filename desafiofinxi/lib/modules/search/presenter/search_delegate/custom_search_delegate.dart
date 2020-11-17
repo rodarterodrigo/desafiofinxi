@@ -1,4 +1,4 @@
-import 'package:desafiofinxi/modules/search/presenter/blocs/gif_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
@@ -31,9 +31,8 @@ class CustomSearchDelegate extends SearchDelegate<String>{
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_back_ios),
       onPressed: (){
-        //gifBloc.close();
         close(context, "");
       },
     );
@@ -60,16 +59,9 @@ class CustomSearchDelegate extends SearchDelegate<String>{
               return Center(child: CircularProgressIndicator());
             case ConnectionState.active:
             case ConnectionState.done:
-              if(snapshot.hasData){
+              // if(snapshot.hasData){
                 if(state is LoadingState) return Center(child: CircularProgressIndicator());
-                if(state is ErrorState) return Center(
-                  child: Text(
-                    "Houve um erro na busca",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                );
+                if(state is ErrorState) return searchHelper.dataFail();
                 final list = (state as LoadedSucessState).gifList;
                 return Container(
                   child: GridView.count(
@@ -81,8 +73,8 @@ class CustomSearchDelegate extends SearchDelegate<String>{
                               height: MediaQuery.of(context).size.height /3,
                               width: MediaQuery.of(context).size.height /2,
                               child: Hero(
-                                  tag: list[index].image,
-                                  child: Image.network(list[index].image, fit: BoxFit.fill,)
+                                  tag: list[index].downsizedImage,
+                                  child: Image.network(list[index].downsizedImage, fit: BoxFit.fill,)
                               ),
                             ),
                             onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
@@ -91,7 +83,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
                       )
                   ),
                 );
-              }else
+              // }else
                 return searchHelper.dataFail();
           }
           return searchHelper.noResult();

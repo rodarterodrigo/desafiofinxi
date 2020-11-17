@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  curved_navigation_bar: ^0.3.4
+  google_fonts: ^1.1.0
   shared_preferences: ^0.5.12+2
   splashscreen: ^1.2.0
   equatable:
@@ -39,7 +41,6 @@ dependencies:
 
 dev_dependencies:
   mockito:
-  dartz:
   flutter_test:
     sdk: flutter
 

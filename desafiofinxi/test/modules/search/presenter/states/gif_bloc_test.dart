@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
 import 'package:desafiofinxi/modules/search/domain/errors/errors.dart';
 import 'package:desafiofinxi/modules/search/domain/usecases/search_gif_by_text.dart';
-import 'package:desafiofinxi/modules/search/presenter/blocs/gif_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 import 'package:flutter_test/flutter_test.dart';

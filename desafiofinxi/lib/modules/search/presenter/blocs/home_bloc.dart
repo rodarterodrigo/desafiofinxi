@@ -3,7 +3,7 @@ import 'package:desafiofinxi/modules/search/presenter/errors/errors.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/navigation_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/navigation_state.dart';
 
-class NavigationBloc extends Bloc<NavigationEvent, INavigationState>{
+class HomeBloc extends Bloc<NavigationEvent, INavigationState>{
 
   int _index = 0;
   get index => _index;
@@ -13,7 +13,7 @@ class NavigationBloc extends Bloc<NavigationEvent, INavigationState>{
   get search => _search;
   set search(value) => _search = value;
 
-  NavigationBloc() : super(IndexSuccess());
+  HomeBloc() : super(IndexSuccess());
 
   @override
   Stream<INavigationState> mapEventToState(NavigationEvent event) async*{

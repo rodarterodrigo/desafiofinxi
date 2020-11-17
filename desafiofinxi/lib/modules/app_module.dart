@@ -1,8 +1,8 @@
 import 'package:desafiofinxi/modules/search/domain/usecases/search_gif_by_text.dart';
 import 'package:desafiofinxi/modules/search/external/datasources/giphy_datasource.dart';
 import 'package:desafiofinxi/modules/search/infra/repositories/gif_search_repository_impl.dart';
-import 'package:desafiofinxi/modules/search/presenter/blocs/gif_bloc.dart';
-import 'package:desafiofinxi/modules/search/presenter/blocs/navigation_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/home_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/navigation/navigation.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
 import 'package:desafiofinxi/modules/search/presenter/views/gif_detail_page.dart';
@@ -22,7 +22,7 @@ class AppModule extends MainModule{
     Bind((i) => GifSearchRepository(i())),
     Bind((i) => SearchGifByText(i())),
     Bind((i) => GifBloc(i())),
-    Bind((i) => NavigationBloc()),
+    Bind((i) => HomeBloc()),
     Bind((i) => Navigation()),
   ];
 

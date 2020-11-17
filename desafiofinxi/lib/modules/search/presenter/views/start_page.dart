@@ -1,4 +1,4 @@
-import 'package:desafiofinxi/modules/search/presenter/blocs/gif_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
@@ -22,12 +22,6 @@ class _StartPageState extends State<StartPage> {
   }
 
   @override
-  void dispose(){
-    gifBloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       initialData: LoadingState,
@@ -39,29 +33,23 @@ class _StartPageState extends State<StartPage> {
         else {
           final list = (state as LoadedSucessState).gifList;
           return Scaffold(
-            // appBar: AppBar(
-            //   title: Text("Giphy Wars"),
-            //   centerTitle: true,
-            // ),
-            body:  Container(
-              child: GridView.count(
-                  crossAxisCount: 2,
-                  children: List.generate(list.length, (index) {
+            body:  GridView.count(
+                crossAxisCount: 2,
+                children: List.generate(list.length, (index) {
                     return GestureDetector(
                       child: Container(
                         padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height /3,
-                        width: MediaQuery.of(context).size.height /2,
+                        // height: MediaQuery.of(context).size.height /3,
+                        // width: MediaQuery.of(context).size.height /2,
                         child: Hero(
-                            tag: list[index].image,
-                            child: Image.network(list[index].image, fit: BoxFit.fill,)
+                            tag: list[index].downsizedImage,
+                            child: Image.network(list[index].downsizedImage, fit: BoxFit.fill,)
                         ),
                       ),
                       onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
                     );
                   }
-                  )
-              ),
+                )
             ),
           );
         }

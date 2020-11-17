@@ -13,6 +13,7 @@ class Navigation implements INavigation{
   Widget viewList(int index, String search) {
     List<Widget> views = [
       StartPage(searchGif: search = "star wars"),
+      null,
       GifLibraryPage(),
     ];
     return views[index];
@@ -26,6 +27,13 @@ class Navigation implements INavigation{
         "Início",
       ),
       icon: Icon(Icons.home),
+    ),
+    BottomNavigationBarItem(
+      backgroundColor: Colors.red,
+      title: Text(
+        "Busca",
+      ),
+      icon: Icon(Icons.search),
     ),
     BottomNavigationBarItem(
       backgroundColor: Colors.red,

@@ -1,13 +1,14 @@
 import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
 
 class GifModel extends Gif{
-  GifModel({id, name, image}):super(id: id, name: name, image: image);
+  GifModel({id, name, originalImage, downsizedImage}):super(id: id, name: name, originalImage: originalImage, downsizedImage:downsizedImage);
 
   Map<String, dynamic> toMap(){
     return{
       "id":id,
       "name":name,
-      "image":image,
+      "originalImage":originalImage,
+      "downsizedImage":downsizedImage
     };
   }
 
@@ -16,7 +17,8 @@ class GifModel extends Gif{
     return GifModel(
       id:map['id'],
       name:map['title'],
-      image: map['images']['original']['url'],
+      originalImage: map['images']['original']['url'],
+      downsizedImage: map['images']['downsized']['url'],
     );
   }
 
@@ -25,7 +27,8 @@ class GifModel extends Gif{
     return GifModel(
       id:map['id'],
       name:map['title'],
-      image: map['images']['original']['url'],
+      originalImage: map['images']['original']['url'],
+      downsizedImage: map['images']['downsized']['url'],
     );
   }
 }

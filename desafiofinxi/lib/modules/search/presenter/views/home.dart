@@ -1,4 +1,5 @@
-import 'package:desafiofinxi/modules/search/presenter/blocs/navigation_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/home_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/navigation_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/navigation/navigation.dart';
 import 'package:desafiofinxi/modules/search/presenter/search_delegate/custom_search_delegate.dart';
@@ -11,7 +12,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final navigation = Modular.get<Navigation>();
-  final navigationBloc = Modular.get<NavigationBloc>();
+  final navigationBloc = Modular.get<HomeBloc>();
+  final gifBloc = Modular.get<GifBloc>();
 
   @override
   void initState(){
@@ -21,6 +23,7 @@ class _HomeState extends State<Home> {
   @override
   void dispose(){
     navigationBloc.close();
+    gifBloc.close();
     super.dispose();
   }
 
@@ -49,8 +52,11 @@ class _HomeState extends State<Home> {
             child: navigation.viewList(navigationBloc.index, navigationBloc.search),
           ),
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex:0,
-            onTap: (ind) => navigationBloc.add(MapIndexEvent(ind)),
+            backgroundColor: Theme.of(context).primaryColor,
+            selectedLabelStyle: TextStyle(fontSize: 12),
+            currentIndex:navigationBloc.index,
+            onTap: (ind) async => ind != 1? navigationBloc.add(MapIndexEvent(ind)):
+            navigationBloc.add(MapSearchEvent(await showSearch(context: context, delegate: CustomSearchDelegate()))),
             type: BottomNavigationBarType.fixed,
             fixedColor: Colors.white,
             items: navigation.bottonNavigation(),

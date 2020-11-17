@@ -3,6 +3,18 @@ abstract class FailureSearch implements Exception{
   FailureSearch({this.message});
 }
 
+class InvalidEntityError implements FailureSearch{
+  @override
+  final dynamic message;
+  InvalidEntityError({this.message});
+
+  String toString() {
+    Object message = this.message;
+    if (message == null) return "InvalidGifError";
+    return "InvalidGifError: $message";
+  }
+}
+
 class InvalidTextError implements FailureSearch{
   @override
   final dynamic message;
