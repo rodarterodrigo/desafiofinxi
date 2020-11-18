@@ -33,7 +33,7 @@ class _StartPageState extends State<StartPage> {
         else {
           final list = (state as LoadedSucessState).gifList;
           return Scaffold(
-            body:  GridView.count(
+            body:  list.length > 1? GridView.count(
                 crossAxisCount: 2,
                 children: List.generate(list.length, (index) {
                     return GestureDetector(
@@ -50,6 +50,27 @@ class _StartPageState extends State<StartPage> {
                     );
                   }
                 )
+            )
+            :Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height/4,),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.amber, width: 4),
+                  ),
+                  child: Image.asset("lib/assets/images/palpatine.gif"),
+                ),
+                SizedBox(height: 20,),
+                Text(
+                  "Clique em buscar para derrotar o senhor do mal!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 24,
+                  ),
+                ),
+              ],
             ),
           );
         }

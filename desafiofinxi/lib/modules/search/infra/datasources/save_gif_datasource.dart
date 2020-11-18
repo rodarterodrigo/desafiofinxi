@@ -1,5 +1,5 @@
-import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
+import 'package:desafiofinxi/modules/search/infra/models/gif_model.dart';
 
 abstract class ISaveGifSearchDatasource{
-  Future<int> postGif(Gif gif);
+  Future<int> postGif(GifModel gif);
 }

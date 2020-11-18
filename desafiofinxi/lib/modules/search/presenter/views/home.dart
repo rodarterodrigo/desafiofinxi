@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final navigation = Modular.get<Navigation>();
-  final navigationBloc = Modular.get<HomeBloc>();
+  final homeBloc = Modular.get<HomeBloc>();
   final gifBloc = Modular.get<GifBloc>();
 
   @override
@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose(){
-    navigationBloc.close();
+    homeBloc.close();
     gifBloc.close();
     super.dispose();
   }
@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: navigationBloc,
+      stream: homeBloc,
       builder: (context, snapshot){
         return Scaffold(
           appBar: AppBar(
@@ -43,20 +43,20 @@ class _HomeState extends State<Home> {
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.search),
-                onPressed: () async => navigationBloc.add(MapSearchEvent(await showSearch(context: context, delegate: CustomSearchDelegate()))),
+                onPressed: () async => homeBloc.add(MapSearchEvent(await showSearch(context: context, delegate: CustomSearchDelegate()))),
               ),
             ],
           ),
           body: Container(
             padding: EdgeInsets.all(16),
-            child: navigation.viewList(navigationBloc.index, navigationBloc.search),
+            child: navigation.viewList(homeBloc.index, homeBloc.search),
           ),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Theme.of(context).primaryColor,
             selectedLabelStyle: TextStyle(fontSize: 12),
-            currentIndex:navigationBloc.index,
-            onTap: (ind) async => ind != 1? navigationBloc.add(MapIndexEvent(ind)):
-            navigationBloc.add(MapSearchEvent(await showSearch(context: context, delegate: CustomSearchDelegate()))),
+            currentIndex:homeBloc.index,
+            onTap: (ind) async => ind != 1? homeBloc.add(MapIndexEvent(ind)):
+            homeBloc.add(MapSearchEvent(await showSearch(context: context, delegate: CustomSearchDelegate()))),
             type: BottomNavigationBarType.fixed,
             fixedColor: Colors.white,
             items: navigation.bottonNavigation(),

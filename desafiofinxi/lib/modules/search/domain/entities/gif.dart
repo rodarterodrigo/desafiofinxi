@@ -3,11 +3,12 @@ import 'package:equatable/equatable.dart';
 class Gif extends Equatable{
   final String id;
   final String name;
+  final String author;
   final String originalImage;
   final String downsizedImage;
   final String url;
 
-  Gif({this.id, this.name, this.originalImage, this.downsizedImage, this.url});
+  Gif({this.id, this.name, this.author, this.originalImage, this.downsizedImage, this.url});
 
   @override
   // TODO: implement props

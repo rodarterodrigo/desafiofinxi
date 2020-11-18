@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  path_provider:
+  sqflite:
   curved_navigation_bar: ^0.3.4
   google_fonts: ^1.1.0
   shared_preferences: ^0.5.12+2
@@ -59,6 +61,7 @@ flutter:
   assets:
    - lib/assets/images/vader.gif
    - lib/assets/images/intro.gif
+   - lib/assets/images/palpatine.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

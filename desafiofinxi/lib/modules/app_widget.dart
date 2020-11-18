@@ -7,7 +7,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: Modular.navigatorKey,
-      title: "Luls Wars",
+      title: "Giphy Wars",
       theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Color.fromRGBO(255, 173, 1, 1),
