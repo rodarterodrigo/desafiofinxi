@@ -9,15 +9,18 @@ class DBProvidder {
   static final DBProvidder db = DBProvidder._();
   Database _database;
 
+  factory DBProvidder() {
+    return db;
+  }
+
   Future<Database> get database async {
     if(_database != null) return _database;
-    _database = await initDB();
+    return _database = await initDB();
   }
 
   initDB() async {
     final dbpath = await getDatabasesPath();
     final localdb = join(dbpath, 'giphywars.db');
-
     return await openDatabase(localdb, version: 1, onOpen: (db) async {
     }, onCreate: (Database db, int version) async {
       await db.execute(GifInitialQuery);

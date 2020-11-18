@@ -33,7 +33,7 @@ class _StartPageState extends State<StartPage> {
         else {
           final list = (state as LoadedSucessState).gifList;
           return Scaffold(
-            body:  list.length > 1? GridView.count(
+            body:  list.length > 0? GridView.count(
                 crossAxisCount: 2,
                 children: List.generate(list.length, (index) {
                     return GestureDetector(
@@ -63,7 +63,7 @@ class _StartPageState extends State<StartPage> {
                 ),
                 SizedBox(height: 20,),
                 Text(
-                  "Clique em buscar para derrotar o senhor do mal!",
+                  "Clique em busca para derrotar o senhor do mal!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.amber,

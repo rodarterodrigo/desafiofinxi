@@ -6,7 +6,7 @@ class GifCrud implements IGifCrud{
   @override
   Future deleteGif(int id) async{
     final db = await DBProvidder.db.database;
-    db.delete('gif', where: 'id = ?', whereArgs: [id]);
+    await db.delete('gif', where: 'id = ?', whereArgs: [id]);
   }
 
   @override
@@ -26,7 +26,8 @@ class GifCrud implements IGifCrud{
   @override
   Future<int> insertGif(GifModel gif) async{
     final db = await DBProvidder.db.database;
-    return await db.insert('note', gif.toMap());
+    var res = await db.insert('gif', gif.toMap());
+    return res;
   }
 
   @override

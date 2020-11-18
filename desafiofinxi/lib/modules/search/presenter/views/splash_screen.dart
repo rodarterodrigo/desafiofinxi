@@ -12,7 +12,7 @@ class _SplashPageState extends State<SplashPage> {
     return Stack(
       children: <Widget>[
         SplashScreen(
-          seconds: 10,
+          seconds: 6,
           backgroundColor: Color.fromRGBO(20, 20, 26, 1),
           navigateAfterSeconds: Routes.HOME,
           loaderColor: Colors.transparent,

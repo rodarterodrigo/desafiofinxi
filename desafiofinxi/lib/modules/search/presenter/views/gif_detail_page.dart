@@ -1,4 +1,7 @@
 import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
+import 'package:desafiofinxi/modules/search/presenter/blocs/internal_data_bloc.dart';
+import 'package:desafiofinxi/modules/search/presenter/states/internal_data_state.dart';
+import 'package:desafiofinxi/modules/search/presenter/events/internal_data_events.dart';
 import 'package:desafiofinxi/modules/search/presenter/shared/enums/buttom_style.dart';
 import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_buttom.dart';
 import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_expansion_tile.dart';
@@ -14,6 +17,7 @@ class GifDetailPage extends StatefulWidget {
 }
 
 class _GifDetailPageState extends State<GifDetailPage> {
+  final saveGifBloc = Modular.get<InternalDataBloc>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,9 +74,20 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    CustomButton(onPressed: (){}, text: "Salvar", buttonStyle: CustomButtonStyle.Secondary,)
+                                    CustomButton(onPressed: () => saveGifBloc.add(SaveGifEvent(widget.gif)), text: "Salvar", buttonStyle: CustomButtonStyle.Secondary,)
                                   ],
-                                )
+                                ),
+                                StreamBuilder(stream: saveGifBloc, builder: (context, snapshot){
+                                    final state = saveGifBloc.state;
+                                    if(state is InitialState) return Center();
+                                    if(state is ErrorState) return Center(child: Text(state.failureSearch.message));
+                                    if(state is LoadingState) return Center(child: CircularProgressIndicator());
+                                    else{
+                                      final id = (state as InsertSucessState).id;
+                                    }
+                                    return Center();
+                                  },
+                                ),
                               ],
                             )
                           ),

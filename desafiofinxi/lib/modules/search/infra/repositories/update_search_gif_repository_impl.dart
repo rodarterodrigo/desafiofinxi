@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
 import 'package:desafiofinxi/modules/search/domain/errors/errors.dart';
 import 'package:desafiofinxi/modules/search/domain/repositories/update_gif_repository.dart';
-import 'package:desafiofinxi/modules/search/internaldata/repositories/gif_crud.dart';
+import 'package:desafiofinxi/modules/search/internaldata/interfaces/gif_crud_interface.dart';
 
 class UpdateGifRepository implements IUpdateGifRepository{
-  final GifCrud datasource;
+  final IGifCrud datasource;
 
   UpdateGifRepository(this.datasource):assert(datasource != null);
 
