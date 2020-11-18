@@ -7,6 +7,7 @@ import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_butt
 import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class GifDetailPage extends StatefulWidget {
   final Gif gif;
 
@@ -84,6 +85,16 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                     if(state is LoadingState) return Center(child: CircularProgressIndicator());
                                     else{
                                       final id = (state as InsertSucessState).id;
+                                      if(id != null)
+                                        Fluttertoast.showToast(
+                                            msg: "Gif salvo com sucesso!",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.black,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
                                     }
                                     return Center();
                                   },
