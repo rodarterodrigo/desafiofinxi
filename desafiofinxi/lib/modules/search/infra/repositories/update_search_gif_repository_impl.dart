@@ -10,9 +10,9 @@ class UpdateGifRepository implements IUpdateGifRepository{
   UpdateGifRepository(this.datasource):assert(datasource != null);
 
   @override
-  Future<Either<FailureSearch, int>> updateGif(Gif gif, int id) async{
+  Future<Either<FailureSearch, int>> updateGif(Gif gif) async{
     try{
-      return gif == null? Left(DataSourceError(message: "A entidade não pode ser nula")): Right(await datasource.updateGif(gif, id));
+      return gif == null? Left(DataSourceError(message: "A entidade não pode ser nula")): Right(await datasource.updateGif(gif));
     }
     on DataSourceError catch(Exception){
       return Left(Exception);

@@ -16,6 +16,19 @@ class GifModel extends Gif{
     };
   }
 
+  static GifModel fromDb(Map<String, dynamic> map){
+    if(map == null) return null;
+    return GifModel(
+      id: map['id'],
+      giphyId:map['giphyId'],
+      name:map['name'],
+      author: map['author'],
+      originalImage: map['original_image'],
+      downsizedImage: map['downsized_image'],
+      url: map['url'],
+    );
+  }
+
   static GifModel fromMap(Map<String, dynamic> map){
     if(map == null) return null;
     return GifModel(

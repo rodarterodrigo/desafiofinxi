@@ -15,6 +15,30 @@ class InvalidEntityError implements FailureSearch{
   }
 }
 
+class DeleteGifError implements FailureSearch{
+  @override
+  final dynamic message;
+  DeleteGifError({this.message});
+
+  String toString() {
+    Object message = this.message;
+    if (message == null) return "InvalidGifError";
+    return "InvalidGifError: $message";
+  }
+}
+
+class DeleteGifDataSourceError implements FailureSearch{
+  @override
+  final dynamic message;
+  DeleteGifDataSourceError({this.message});
+
+  String toString() {
+    Object message = this.message;
+    if (message == null) return "InvalidGifError";
+    return "InvalidGifError: $message";
+  }
+}
+
 class InvalidTextError implements FailureSearch{
   @override
   final dynamic message;

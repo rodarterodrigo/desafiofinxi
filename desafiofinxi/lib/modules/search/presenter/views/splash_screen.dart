@@ -9,24 +9,26 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        SplashScreen(
-          seconds: 6,
-          backgroundColor: Color.fromRGBO(20, 20, 26, 1),
-          navigateAfterSeconds: Routes.HOME,
-          loaderColor: Colors.transparent,
-        ),
-        Container(
-          alignment: Alignment.center,
-          child: Container(
-            color: Colors.black,
-            child: Center(
-              child: Image.asset("lib/assets/images/intro.gif"),
+    return SafeArea(
+      child: Stack(
+        children: <Widget>[
+          SplashScreen(
+            seconds: 6,
+            backgroundColor: Color.fromRGBO(20, 20, 26, 1),
+            navigateAfterSeconds: Routes.HOME,
+            loaderColor: Colors.transparent,
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: Container(
+              color: Colors.black,
+              child: Center(
+                child: Image.asset("lib/assets/images/intro.gif"),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -24,6 +24,13 @@ class LoadingState extends InternalDataState {
   List<Object> get props => [];
 }
 
+class DeleteSucessState extends InternalDataState {
+  final int id;
+  const DeleteSucessState(this.id);
+  @override
+  List<Object> get props => [id];
+}
+
 class LoadedSucessState extends InternalDataState {
   final List<Gif> gifList;
   const LoadedSucessState(this.gifList);

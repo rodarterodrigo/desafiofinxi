@@ -21,7 +21,7 @@ class DBProvidder {
   initDB() async {
     final dbpath = await getDatabasesPath();
     final localdb = join(dbpath, 'giphywars.db');
-    deleteDatabase(localdb);
+    // deleteDatabase(localdb);
     return await openDatabase(localdb, version: 1, onOpen: (db) async {
     }, onCreate: (Database db, int version) async {
       await db.execute(GifInitialQuery);
