@@ -44,7 +44,50 @@ class CustomSearchDelegate extends SearchDelegate<String>{
   @override
   Widget buildResults(BuildContext context) {
     close(context, query);
-    return Container();
+    final SearchHelper searchHelper = new SearchHelper();
+    if(query.isNotEmpty){
+      gifBloc.add(SearchGifEvent(query, ItensPerPage, gifBloc.itemIndex));
+      return StreamBuilder(stream: gifBloc,
+        builder: (context, snapshot){
+          final state = gifBloc.state;
+          switch(snapshot.connectionState){
+            case ConnectionState.none:
+              return searchHelper.verifyConnection();
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+            case ConnectionState.done:
+              if(state is ErrorState) return searchHelper.dataFail();
+              final list = (state as LoadedSucessState).gifList;
+              return NotificationListener<ScrollNotification>(
+                child: list.length <1 ? Center(child: CircularProgressIndicator()): GridView.count(
+                    crossAxisCount: 2,
+                    children: List.generate(list.length, (index) {
+                      return GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Hero(
+                            tag: list[index].downsizedImage,
+                            child: CachedNetworkImage(
+                              imageUrl: list[index].downsizedImage, fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
+                      );
+                    }
+                    )
+                ),
+                onNotification: (value) => gifBloc.handleNotification(value, query),
+              );
+              // }else
+              return searchHelper.dataFail();
+          }
+          return searchHelper.noResult();
+        },
+      );
+    }else {
+      return searchHelper.noResult();
+    }
   }
 
   @override
