@@ -13,6 +13,10 @@ class GifBloc extends Bloc<GifEvent, GifState> {
 
   GifBloc(this.usecase):super(InitialState());
 
+  String _searchGif;
+  get searchGif => _searchGif;
+  set searchGif(value) => _searchGif;
+
   List<Gif> _gifList = List<Gif>();
   get gifList => _gifList;
   set gifList(value) => _gifList = value;
