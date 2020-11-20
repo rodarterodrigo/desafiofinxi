@@ -18,7 +18,7 @@ class SaveSearchGif implements ISaveSearchGif{
       return gif == null? Left(InvalidEntityError(message: "A entidade não pode ser nula")): await repository.postGif(gif);
     }
     catch(e){
-      return Left(InvalidEntityError(message: "A entidade não pode ser nula"));
+      return Left(InvalidEntityError(message: e.toString()));
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
@@ -33,7 +34,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
     return IconButton(
       icon: Icon(Icons.arrow_back_ios),
       onPressed: (){
-        close(context, "");
+        close(context, query == null? "": query);
       },
     );
   }
@@ -46,9 +47,11 @@ class CustomSearchDelegate extends SearchDelegate<String>{
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    int limit = 20;
+    int offset = 0;
     final SearchHelper searchHelper = new SearchHelper();
     if(query.isNotEmpty){
-      gifBloc.add(SearchGifEvent(query));
+      gifBloc.add(SearchGifEvent(query, limit, offset));
       return StreamBuilder(stream: gifBloc,
         builder: (context, snapshot){
           final state = gifBloc.state;
@@ -56,25 +59,22 @@ class CustomSearchDelegate extends SearchDelegate<String>{
             case ConnectionState.none:
               return searchHelper.verifyConnection();
             case ConnectionState.waiting:
-              return Center(child: CircularProgressIndicator());
             case ConnectionState.active:
             case ConnectionState.done:
-              // if(snapshot.hasData){
-                if(state is LoadingState) return Center(child: CircularProgressIndicator());
                 if(state is ErrorState) return searchHelper.dataFail();
                 final list = (state as LoadedSucessState).gifList;
-                return Container(
+                return NotificationListener<ScrollNotification>(
                   child: GridView.count(
                       crossAxisCount: 2,
                       children: List.generate(list.length, (index) {
                           return GestureDetector(
                             child: Container(
                               padding: EdgeInsets.all(10),
-                              height: MediaQuery.of(context).size.height /3,
-                              width: MediaQuery.of(context).size.height /2,
                               child: Hero(
-                                  tag: list[index].downsizedImage,
-                                  child: Image.network(list[index].downsizedImage, fit: BoxFit.fill,)
+                                tag: list[index].downsizedImage,
+                                child: CachedNetworkImage(
+                                  imageUrl: list[index].downsizedImage, fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                             onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
@@ -82,6 +82,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
                         }
                       )
                   ),
+                  onNotification: (value) => gifBloc.handleNotification(value, query),
                 );
               // }else
                 return searchHelper.dataFail();

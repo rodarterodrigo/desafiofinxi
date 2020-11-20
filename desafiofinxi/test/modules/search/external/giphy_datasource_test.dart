@@ -17,19 +17,19 @@ final datasource = GiphyDatasource(dio);
 main(){
   test("Deve completar a request", (){
     when(dio.get(any)).thenAnswer((realInvocation) async => Response(data: jsonDecode(GifSearchDatasourceResponse), statusCode: 200));
-    final result = datasource.gifSearch("finxiwars");
+    final result = datasource.gifSearch("finxiwars", 20, 0);
     expect(result, completes);
   });
 
   test("Deve retornar uma lista do tipo GifModel", (){
     when(dio.get(any)).thenAnswer((realInvocation) async => Response(data: jsonDecode(GifSearchDatasourceResponse), statusCode: 200));
-    final result = datasource.gifSearch("searchText");
+    final result = datasource.gifSearch("searchText", 20, 0);
     expect(result, isA<Future<List<GifModel>>>());
   });
 
   test("Deve retornar uma exceção do tipo DataSourceError", (){
     when(dio.get(any)).thenAnswer((realInvocation) async => Response(data: null, statusCode: 401));
-    final result = datasource.gifSearch("searchText");
+    final result = datasource.gifSearch("searchText", 20, 0);
     expect(result, throwsA(isA<DataSourceError>()));
   });
 }

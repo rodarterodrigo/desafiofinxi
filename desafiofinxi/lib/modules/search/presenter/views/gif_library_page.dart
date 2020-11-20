@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desafiofinxi/modules/search/presenter/blocs/library_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/internal_data_events.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
@@ -41,7 +42,7 @@ class _GifLibraryPageState extends State<GifLibraryPage> {
                         // width: MediaQuery.of(context).size.height /2,
                         child: Hero(
                             tag: list[index].downsizedImage,
-                            child: Image.network(list[index].downsizedImage, fit: BoxFit.fill,)
+                            child: CachedNetworkImage(imageUrl: list[index].downsizedImage, fit: BoxFit.fill,)
                         ),
                       ),
                       onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
@@ -49,27 +50,29 @@ class _GifLibraryPageState extends State<GifLibraryPage> {
                   }
                   )
               )
-                  :Column(
+                  :SingleChildScrollView(
+                    child: Column(
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height/4,),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.amber, width: 4),
+                    SizedBox(height: MediaQuery.of(context).size.height/4,),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.amber, width: 4),
+                      ),
+                      child: Image.asset("lib/assets/images/palpatine.gif"),
                     ),
-                    child: Image.asset("lib/assets/images/palpatine.gif"),
-                  ),
-                  SizedBox(height: 20,),
-                  Text(
-                    "Sem Gifs salvos, o universo irá perecer nas mãos do Senhor do Mal :(",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 20,
+                    SizedBox(height: 20,),
+                    Text(
+                      "Sem Gifs salvos, o universo irá perecer nas mãos do Senhor do Mal :(",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
                 ],
               ),
+                  ),
             );
           }
         },

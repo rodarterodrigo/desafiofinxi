@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
 import 'package:desafiofinxi/modules/search/domain/usecases/delete_gif_by_id.dart';
 import 'package:desafiofinxi/modules/search/domain/usecases/save_search_gif.dart';
 import 'package:desafiofinxi/modules/search/domain/usecases/update_search_gif.dart';
@@ -9,6 +10,10 @@ class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState>{
   final SaveSearchGif saveSearchGif;
   final UpdateSearchGif updateSearchGif;
   final DeleteGifById deleteGifById;
+
+  Gif _gif = Gif();
+  get gif => _gif;
+  set gif(value) => _gif = value;
 
   int _saveId = 0;
   get saveId => _saveId;

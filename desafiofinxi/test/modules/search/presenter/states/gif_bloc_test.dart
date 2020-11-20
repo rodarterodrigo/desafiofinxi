@@ -15,20 +15,18 @@ final bloc = GifBloc(usecase);
 
 main(){
   test("Deve retornar os estados em ordem.", (){
-    when(usecase.searchGif(any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+    when(usecase.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
     expect(bloc, emitsInOrder([
-      isA<LoadingState>(),
       isA<LoadedSucessState>(),
     ]));
-    bloc.add(SearchGifEvent("starwars"));
+    bloc.add(SearchGifEvent("starwars", 20, 0));
   });
 
   test("Deve retornar os estados em ordem.", (){
-    when(usecase.searchGif(any)).thenAnswer((realInvocation) async => Left(InvalidTextError()));
+    when(usecase.searchGif(any, any, any)).thenAnswer((realInvocation) async => Left(InvalidTextError()));
     expect(bloc, emitsInOrder([
-      isA<LoadingState>(),
       isA<ErrorState>(),
     ]));
-    bloc.add(SearchGifEvent("starwars"));
+    bloc.add(SearchGifEvent("starwars", 20, 0));
   });
 }

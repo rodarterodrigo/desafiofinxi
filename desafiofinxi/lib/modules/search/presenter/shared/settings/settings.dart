@@ -1,0 +1,1 @@
+const int ItensPerPage = 10;

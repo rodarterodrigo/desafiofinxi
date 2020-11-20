@@ -18,7 +18,7 @@ class UpdateGifRepository implements IUpdateGifRepository{
       return Left(Exception);
     }
     catch(e){
-      return Left(DataSourceError(message: "Algo errado ocorreu"));
+      return Left(DataSourceError(message: e.toString()));
     }
   }
 }

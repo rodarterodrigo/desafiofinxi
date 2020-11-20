@@ -14,20 +14,20 @@ final usecase = SearchGifByText(repository);
 main(){
 
   test("Deve retornar uma lista de gif's matadores", () async {
-    when(repository.searchGif(any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
-    final result = await usecase.searchGif("jarjar");
+    when(repository.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+    final result = await usecase.searchGif("jarjar", 20, 0);
     expect(result | null, isA<List<Gif>>());
   });
 
   test("Deve retornar uma lista de gif's matadores", () async {
-    when(repository.searchGif(any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
-    final result = await usecase.searchGif("");
+    when(repository.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+    final result = await usecase.searchGif("", 20, 0);
     expect(result | null, isA<List<Gif>>());
   });
 
   test("Deve retornar uma exceção do tipo InvalidTextError", () async{
-    when(repository.searchGif(any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
-    final result = await usecase.searchGif(null);
+    when(repository.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+    final result = await usecase.searchGif(null, 20, 0);
     expect(result.fold(id,id), isA<InvalidTextError>());
   });
 }

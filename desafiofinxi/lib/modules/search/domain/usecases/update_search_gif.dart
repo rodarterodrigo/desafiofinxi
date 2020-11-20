@@ -18,7 +18,7 @@ class UpdateSearchGif implements IUpdateSearchGif{
       return gif == null? Left(InvalidEntityError(message: "A entidade não pode ser nula")): await repository.updateGif(gif);
     }
     catch(e){
-      return Left(InvalidEntityError(message: "A entidade não pode ser nula"));
+      return Left(InvalidEntityError(message: e.toString()));
     }
   }
 }

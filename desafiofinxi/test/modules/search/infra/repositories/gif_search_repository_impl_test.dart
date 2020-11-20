@@ -14,20 +14,20 @@ final repository = GifSearchRepository(datasource);
 
 main(){
   test("Deve retornar uma lista de gifs matadores!", () async{
-    when(datasource.gifSearch(any)).thenAnswer((realInvocation) async => List<GifModel>());
-    final result = await repository.searchGif("RodarthVader");
+    when(datasource.gifSearch(any, any, any)).thenAnswer((realInvocation) async => List<GifModel>());
+    final result = await repository.searchGif("RodarthVader", 20, 0);
     expect(result | null, isA<List<Gif>>());
   });
 
   test("Deve retornar uma lista de gifs matadores!", () async{
-    when(datasource.gifSearch(any)).thenAnswer((realInvocation) async => List<GifModel>());
-    final result = await repository.searchGif("");
+    when(datasource.gifSearch(any, any, any)).thenAnswer((realInvocation) async => List<GifModel>());
+    final result = await repository.searchGif("", 20, 0);
     expect(result | null, isA<List<Gif>>());
   });
 
   test("Deve retornar uma exceção do tipo DataSourceError", () async{
-    when(datasource.gifSearch(any)).thenAnswer((realInvocation) async => List<GifModel>());
-    final result = await repository.searchGif(null);
+    when(datasource.gifSearch(any, any, any)).thenAnswer((realInvocation) async => List<GifModel>());
+    final result = await repository.searchGif(null, 20, 0);
     expect(result.fold(id,id), isA<DataSourceError>());
   });
 }

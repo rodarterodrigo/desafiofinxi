@@ -10,10 +10,16 @@ class GiphyDatasource implements IGifSearchDatasource{
   GiphyDatasource(this.dio):assert(dio != null);
 
   @override
-  Future<List<GifModel>> gifSearch(String searchText) async{
+  Future<List<GifModel>> gifSearch(String searchText, int itensPerPage, int indexItem) async{
 
-    final response = await dio.get(Settings.baseUrlPrefix +"?api_key=${Settings.giphyApiKey}&q=${searchText}");
+    final response = await dio.get(
+        Settings.baseUrlPrefix +
+            "?api_key=${Settings.giphyApiKey}"
+            "&q=${searchText}"
+            "&limit={$itensPerPage}"
+            "&offset={$indexItem}"
+    );
 
-    return response.statusCode == 200? (response.data['data'] as List).map((map) => GifModel.fromMap(map)).toList(): throw DataSourceError(message: "Erro na requisição");
+    return response.statusCode == 200? (response.data['data'] as List).map((map) => GifModel.fromMap(map)).toList(): throw DataSourceError();
   }
 }
