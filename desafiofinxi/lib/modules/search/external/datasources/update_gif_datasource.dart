@@ -5,14 +5,14 @@ import 'package:desafiofinxi/modules/search/infra/datasources/update_gif_datasou
 import 'package:desafiofinxi/modules/search/infra/models/gif_model.dart';
 import 'package:dio/dio.dart';
 
-class SaveGifDataSource implements IUpdateGifSearchDatasource{
+class UpdateGifDataSource implements IUpdateGifSearchDatasource{
   final Dio dio;
 
-  SaveGifDataSource(this.dio):assert(dio != null);
+  UpdateGifDataSource(this.dio):assert(dio != null);
 
   @override
-  Future<int> postGif(GifModel gif, int id) async{
-    final response = await dio.post(Settings.baseUrlPrefix +"?api_key=${Settings.giphyApiKey}?id=${id}", data: gif.toMap());
+  Future<int> postGif(GifModel gif) async{
+    final response = await dio.put(Settings.baseUrlPrefix +"?api_key=${Settings.giphyApiKey}&id=${gif.giphyId}", data: gif.toJson());
 
     return response.statusCode == 200? jsonDecode(response.data): throw DataSourceError(message: "Erro na requisição");
   }

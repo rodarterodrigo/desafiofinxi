@@ -64,7 +64,7 @@ class CustomSearchDelegate extends SearchDelegate<String>{
                 if(state is ErrorState) return searchHelper.dataFail();
                 final list = (state as LoadedSucessState).gifList;
                 return NotificationListener<ScrollNotification>(
-                  child: GridView.count(
+                  child: list.length <1 ? Center(child: CircularProgressIndicator()): GridView.count(
                       crossAxisCount: 2,
                       children: List.generate(list.length, (index) {
                           return GestureDetector(

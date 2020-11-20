@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField(
-      {this.hint,
+  CustomTextField({
+        this.labelText,
+        this.hint,
         this.maxLength,
         this.maxLines,
         this.errorText,
@@ -14,6 +15,7 @@ class CustomTextField extends StatelessWidget {
         this.isPassword = false,
         this.isAutoFocus = false});
 
+  final String labelText;
   final String hint;
   final int maxLines;
   final int maxLength;
@@ -41,8 +43,9 @@ class CustomTextField extends StatelessWidget {
               style:
               TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
               textInputAction: TextInputAction.next,
-              onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               decoration: InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelText: labelText,
                   helperText: helperText,
                   hintText: hint,
                   hintStyle: TextStyle(

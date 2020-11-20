@@ -11,7 +11,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
 
   final SearchGifByText usecase;
 
-  GifBloc(this.usecase):super(LoadingState());
+  GifBloc(this.usecase):super(InitialState());
 
   List<Gif> _gifList = List<Gif>();
   get gifList => _gifList;
@@ -71,7 +71,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   @override
   Stream<Transition<GifEvent, GifState>> transformEvents(
       Stream<GifEvent> events, transitionFn) {
-    events = events.debounceTime(Duration(milliseconds: 900));
+    events = events.debounceTime(Duration(milliseconds: 400));
     return super.transformEvents(events, transitionFn);
   }
 }

@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-abstract class NavigationEvent extends Equatable{
-  const NavigationEvent();
+abstract class HomeEvent extends Equatable{
+  const HomeEvent();
 }
 
-class MapIndexEvent extends NavigationEvent{
+class MapIndexEvent extends HomeEvent{
   final int index;
   const MapIndexEvent(this.index);
   @override
@@ -12,7 +12,7 @@ class MapIndexEvent extends NavigationEvent{
   List<Object> get props => [index];
 }
 
-class MapSearchEvent extends NavigationEvent{
+class MapSearchEvent extends HomeEvent{
   final String search;
   const MapSearchEvent(this.search);
   @override

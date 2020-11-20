@@ -13,7 +13,6 @@ import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_expa
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 class GifDetailPage extends StatefulWidget {
   final Gif gif;
@@ -145,7 +144,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                       child: CustomButton(onPressed: () {
                         return Alert(
                             style: AlertStyle(
-                              backgroundColor: Theme.of(context).appBarTheme.color,
+                              backgroundColor: Theme.of(context).primaryColor
                             ),
                             context: context,
                             title: "",
@@ -154,6 +153,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                   child: CustomTextField(
+                                      labelText: "Nome",
                                       controller: name,
                                       isAutoFocus: true,
                                       hint: "Name",
@@ -162,6 +162,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                   child: CustomTextField(
+                                      labelText: "Autor",
                                       controller: author,
                                       isAutoFocus: true,
                                       hint: "Author",
@@ -170,6 +171,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                   child: CustomTextField(
+                                      labelText: "Imagem original",
                                       controller: originalImage,
                                       isAutoFocus: true,
                                       hint: "originalImage",
@@ -178,6 +180,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                   child: CustomTextField(
+                                      labelText: "Qualidade reduzida",
                                       controller: downsizedImage,
                                       isAutoFocus: true,
                                       hint: "downsizedImage",
@@ -186,6 +189,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                   child: CustomTextField(
+                                      labelText: "Giphy Link",
                                       controller: url,
                                       isAutoFocus: true,
                                       hint: "url",
@@ -212,7 +216,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                                 },
                                 child: Text(
                                   "Editar",
-                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                  style: TextStyle(color: Colors.black, fontSize: 20),
                                 ),
                               )
                             ]).show();

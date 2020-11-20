@@ -3,7 +3,7 @@ import 'package:desafiofinxi/modules/search/presenter/errors/errors.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/navigation_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/navigation_state.dart';
 
-class HomeBloc extends Bloc<NavigationEvent, INavigationState>{
+class HomeBloc extends Bloc<HomeEvent, INavigationState>{
 
   int _index = 0;
   get index => _index;
@@ -16,7 +16,7 @@ class HomeBloc extends Bloc<NavigationEvent, INavigationState>{
   HomeBloc() : super(IndexSuccess());
 
   @override
-  Stream<INavigationState> mapEventToState(NavigationEvent event) async*{
+  Stream<INavigationState> mapEventToState(HomeEvent event) async*{
     if(event is MapIndexEvent) {
       yield* _mapIndexToState(event);
     }

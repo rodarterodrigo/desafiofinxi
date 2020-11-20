@@ -38,8 +38,6 @@ class _GifLibraryPageState extends State<GifLibraryPage> {
                     return GestureDetector(
                       child: Container(
                         padding: EdgeInsets.all(10),
-                        // height: MediaQuery.of(context).size.height /3,
-                        // width: MediaQuery.of(context).size.height /2,
                         child: Hero(
                             tag: list[index].downsizedImage,
                             child: CachedNetworkImage(imageUrl: list[index].downsizedImage, fit: BoxFit.fill,)
@@ -50,29 +48,27 @@ class _GifLibraryPageState extends State<GifLibraryPage> {
                   }
                   )
               )
-                  :SingleChildScrollView(
-                    child: Column(
+                  :Column(
                 children: [
-                    SizedBox(height: MediaQuery.of(context).size.height/4,),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.amber, width: 4),
-                      ),
-                      child: Image.asset("lib/assets/images/palpatine.gif"),
+                  SizedBox(height: MediaQuery.of(context).size.height/4,),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.amber, width: 4),
                     ),
-                    SizedBox(height: 20,),
-                    Text(
-                      "Sem Gifs salvos, o universo irá perecer nas mãos do Senhor do Mal :(",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.amber,
-                        fontSize: 20,
-                      ),
+                    child: Image.asset("lib/assets/images/palpatine.gif"),
+                  ),
+                  SizedBox(height: 20,),
+                  Text(
+                    "Sem Gifs salvos, o universo irá perecer nas mãos do Senhor do Mal :(",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.amber,
+                      fontSize: 20,
                     ),
+                  ),
                 ],
               ),
-                  ),
             );
           }
         },

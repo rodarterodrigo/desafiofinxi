@@ -29,6 +29,23 @@ class GifModel extends Gif{
     );
   }
 
+  Map<String, dynamic> toJson(){
+    return{
+      "id":giphyId,
+      "title":name,
+      "username":author,
+      "url":url,
+      "images":{
+        "original":{
+          "url": originalImage
+        },
+        "downsized":{
+          "url": downsizedImage
+        }
+      },
+    };
+  }
+
   static GifModel fromMap(Map<String, dynamic> map){
     if(map == null) return null;
     return GifModel(

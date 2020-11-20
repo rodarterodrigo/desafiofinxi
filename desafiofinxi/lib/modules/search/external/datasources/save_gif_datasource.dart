@@ -12,8 +12,8 @@ class SaveGifDataSource implements ISaveGifSearchDatasource{
 
   @override
   Future<int> postGif(GifModel gif) async{
-    final response = await dio.post(Settings.baseUrlPrefix +"?api_key=${Settings.giphyApiKey}", data: gif.toMap());
+    final response = await dio.post(Settings.baseUrlPrefix +"?api_key=${Settings.giphyApiKey}", data: gif.toJson());
 
-    return response.statusCode == 200? jsonDecode(response.data): throw DataSourceError(message: "Erro na requisição");
+    return response.statusCode == 200? jsonDecode(response.data): throw DataSourceError();
   }
 }

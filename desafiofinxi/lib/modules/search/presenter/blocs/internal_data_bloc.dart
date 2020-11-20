@@ -5,6 +5,7 @@ import 'package:desafiofinxi/modules/search/domain/usecases/save_search_gif.dart
 import 'package:desafiofinxi/modules/search/domain/usecases/update_search_gif.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/internal_data_events.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/internal_data_state.dart';
+import 'package:rxdart/rxdart.dart';
 
 class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState>{
   final SaveSearchGif saveSearchGif;
@@ -33,6 +34,13 @@ class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState>{
       yield* _mapUpdateGifToState(event);
     if(event is DeleteGifEvent)
       yield* _mapDeleteGifToState(event);
+  }
+
+  @override
+  Stream<Transition<InternalDataEvents, InternalDataState>> transformEvents(
+      Stream<InternalDataEvents> events, transitionFn) {
+    events = events.debounceTime(Duration(milliseconds: 400));
+    return super.transformEvents(events, transitionFn);
   }
 
   Stream<InternalDataState> _mapSaveGifsToState(SaveGifEvent event) async* {
