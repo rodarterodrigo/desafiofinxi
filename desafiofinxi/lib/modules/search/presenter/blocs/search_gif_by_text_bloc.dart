@@ -17,7 +17,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   get gifList => _gifList;
   set gifList(value) => _gifList = value;
 
-  int _itemIndex = 0;
+  int _itemIndex = 1;
   get itemIndex => _itemIndex;
   set itemIndex(value) => _itemIndex = value;
 
@@ -43,7 +43,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
     }
   }
 
-  int returnItemIndex(int page) => this.itemIndex = (page - 1) * ItensPerPage;
+  int returnItemIndex(int page) => this.itemIndex = ((page - 1) * ItensPerPage);
 
   @override
   Stream<GifState> mapEventToState(GifEvent event) async* {
