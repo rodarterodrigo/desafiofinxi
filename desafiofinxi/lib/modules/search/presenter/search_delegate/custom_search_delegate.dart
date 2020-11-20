@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
+import 'package:desafiofinxi/modules/search/presenter/shared/settings/settings.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/search_delegate/search_helper.dart';
@@ -47,11 +48,9 @@ class CustomSearchDelegate extends SearchDelegate<String>{
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    int limit = 20;
-    int offset = 0;
     final SearchHelper searchHelper = new SearchHelper();
     if(query.isNotEmpty){
-      gifBloc.add(SearchGifEvent(query, limit, offset));
+      gifBloc.add(SearchGifEvent(query, ItensPerPage, gifBloc.itemIndex));
       return StreamBuilder(stream: gifBloc,
         builder: (context, snapshot){
           final state = gifBloc.state;

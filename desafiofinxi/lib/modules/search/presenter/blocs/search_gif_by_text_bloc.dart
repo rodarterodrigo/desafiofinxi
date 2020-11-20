@@ -17,7 +17,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   get gifList => _gifList;
   set gifList(value) => _gifList = value;
 
-  int _itemIndex = 1;
+  int _itemIndex = 0;
   get itemIndex => _itemIndex;
   set itemIndex(value) => _itemIndex = value;
 
