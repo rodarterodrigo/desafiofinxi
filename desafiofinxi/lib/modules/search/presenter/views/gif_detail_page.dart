@@ -206,9 +206,10 @@ class _GifDetailPageState extends State<GifDetailPage> {
                     if(state is InsertSucessState){
                       final savedId = (state as InsertSucessState).id;
                       if(savedId != internalDataBloc.saveId) {
-                        CustomFlutterToast.alert("Gif inserido com sucesso!");
+                        CustomFlutterToast.alert("Gif salvo com sucesso!");
                         internalDataBloc.saveId = savedId;
                       }
+                      libraryBloc.add(GetAllGifEvent());
                     }
                     if(state is UpdateSucessState){
                       final updatedId = (state as UpdateSucessState).id;
@@ -216,6 +217,7 @@ class _GifDetailPageState extends State<GifDetailPage> {
                         CustomFlutterToast.alert("Gif atualizado com sucesso!");
                         internalDataBloc.updatedId = updatedId;
                       }
+                      libraryBloc.add(GetAllGifEvent());
                     }
                     return Center();
                   },
