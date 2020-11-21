@@ -20,6 +20,10 @@ class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState>{
   get saveId => _saveId;
   set saveId(int value) => _saveId = value;
 
+  int _updatedId = 0;
+  get updatedId => _updatedId;
+  set updatedId(int value) => _updatedId = value;
+
   int _deletedId = 0;
   get deletedId => _deletedId;
   set deletedId(int value) => _deletedId = value;

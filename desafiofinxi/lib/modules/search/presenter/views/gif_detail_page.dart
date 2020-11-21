@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
 import 'package:desafiofinxi/modules/search/infra/models/gif_model.dart';
+import 'package:desafiofinxi/modules/search/internaldata/repositories/gif_crud.dart';
 import 'package:desafiofinxi/modules/search/presenter/blocs/internal_data_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/blocs/library_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_flutter_toast.dart';
-import 'package:desafiofinxi/modules/search/presenter/shared/widgets/custom_text_field.dart';
+import 'package:desafiofinxi/modules/search/presenter/shared/widgets/gif_edit_column.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/internal_data_state.dart';
 import 'package:desafiofinxi/modules/search/presenter/events/internal_data_events.dart';
 import 'package:desafiofinxi/modules/search/presenter/shared/enums/buttom_style.dart';
@@ -26,6 +27,7 @@ class GifDetailPage extends StatefulWidget {
 class _GifDetailPageState extends State<GifDetailPage> {
   final internalDataBloc = Modular.get<InternalDataBloc>();
   final libraryBloc = Modular.get<LibraryBloc>();
+  final crud = Modular.get<GifCrud>();
 
   TextEditingController name = new TextEditingController();
   TextEditingController author = new TextEditingController();
@@ -122,7 +124,13 @@ class _GifDetailPageState extends State<GifDetailPage> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(14),
-                      child: CustomButton(onPressed: () => internalDataBloc.add(SaveGifEvent(internalDataBloc.gif)), text: "Salvar", buttonStyle: CustomButtonStyle.Primary,),
+                      child: CustomButton(onPressed: () async {
+                        if(await crud.getGifByGiphyId(widget.gif.giphyId) == false)
+                          internalDataBloc.add(SaveGifEvent(internalDataBloc.gif));
+                        else
+                          CustomFlutterToast.alert("Você já salvou este gif!");
+                        },
+                        text: "Salvar", buttonStyle: CustomButtonStyle.Primary,),
                     ),
                   ],
                 ):
@@ -148,54 +156,12 @@ class _GifDetailPageState extends State<GifDetailPage> {
                             ),
                             context: context,
                             title: "",
-                            content: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: CustomTextField(
-                                      labelText: "Nome",
-                                      controller: name,
-                                      isAutoFocus: true,
-                                      hint: "Name",
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: CustomTextField(
-                                      labelText: "Autor",
-                                      controller: author,
-                                      isAutoFocus: true,
-                                      hint: "Author",
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: CustomTextField(
-                                      labelText: "Imagem original",
-                                      controller: originalImage,
-                                      isAutoFocus: true,
-                                      hint: "originalImage",
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: CustomTextField(
-                                      labelText: "Qualidade reduzida",
-                                      controller: downsizedImage,
-                                      isAutoFocus: true,
-                                      hint: "downsizedImage",
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: CustomTextField(
-                                      labelText: "Giphy Link",
-                                      controller: url,
-                                      isAutoFocus: true,
-                                      hint: "url",
-                                  ),
-                                ),
-                              ],
+                            content: GifEditColum(
+                              url: url,
+                              originalImage: originalImage,
+                              downsizedImage: downsizedImage,
+                              author: author,
+                              name: name,
                             ),
                             buttons: [
                               DialogButton(
@@ -242,6 +208,13 @@ class _GifDetailPageState extends State<GifDetailPage> {
                       if(savedId != internalDataBloc.saveId) {
                         CustomFlutterToast.alert("Gif inserido com sucesso!");
                         internalDataBloc.saveId = savedId;
+                      }
+                    }
+                    if(state is UpdateSucessState){
+                      final updatedId = (state as UpdateSucessState).id;
+                      if(updatedId != internalDataBloc.updatedId) {
+                        CustomFlutterToast.alert("Gif atualizado com sucesso!");
+                        internalDataBloc.updatedId = updatedId;
                       }
                     }
                     return Center();

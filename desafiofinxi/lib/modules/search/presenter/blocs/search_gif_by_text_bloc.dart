@@ -13,10 +13,6 @@ class GifBloc extends Bloc<GifEvent, GifState> {
 
   GifBloc(this.usecase):super(InitialState());
 
-  String _searchGif;
-  get searchGif => _searchGif;
-  set searchGif(value) => _searchGif;
-
   List<Gif> _gifList = List<Gif>();
   get gifList => _gifList;
   set gifList(value) => _gifList = value;
@@ -36,6 +32,14 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   int _finalGifPage = 1;
   get finalGifPage => this._finalGifPage;
   set finalGifPage(value) => this._finalGifPage = value;
+
+  void initialize(){
+    finalGifPage = 1;
+    gifPage = 1;
+    itemIndex = 0;
+    gifList = List<Gif>();
+    lastGifPage = false;
+  }
 
   bool handleNotification(ScrollNotification scrollInfo, String searchGif){
     if(scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent){
