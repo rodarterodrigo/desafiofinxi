@@ -17,6 +17,10 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   get gifList => _gifList;
   set gifList(value) => _gifList = value;
 
+  String _searchText = "";
+  get searchText => _searchText;
+  set searchText(value) => _searchText = value;
+
   int _itemIndex = 0;
   get itemIndex => _itemIndex;
   set itemIndex(value) => _itemIndex = value;

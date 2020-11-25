@@ -27,12 +27,9 @@ class GifCrud implements IGifCrud{
 
   @override
   Future<int> insertGif(GifModel gif) async{
-    Gif gifReturn = Gif();
     final db = await DBProvidder.db.database;
-    List<Map<dynamic, dynamic>> res = await db.query('gif', where: 'giphyId = ?', whereArgs: [gif.giphyId]);
-    if(res.isNotEmpty) {
-      gifReturn = GifModel.fromDb(res.first);
-      return gifReturn.id;
+    if(await getGifByGiphyId(gif.giphyId)) {
+      return gif.id;
     }else{
       return await db.insert('gif', gif.toMap());
     }

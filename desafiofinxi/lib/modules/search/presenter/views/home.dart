@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
             ),
             body: Container(
               padding: EdgeInsets.all(16),
-              child: navigation.viewList(homeBloc.index, homeBloc.search),
+              child: navigation.viewList(homeBloc.index, (homeBloc.search != null && homeBloc.search != "")? homeBloc.search: gifBloc.searchText),
             ),
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor: Theme.of(context).primaryColor,

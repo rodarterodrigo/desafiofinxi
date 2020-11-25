@@ -25,6 +25,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    gifBloc.searchText = widget.searchGif;
     return SafeArea(
       child: Scaffold(
         body: gifBloc.gifList.length > 0?
