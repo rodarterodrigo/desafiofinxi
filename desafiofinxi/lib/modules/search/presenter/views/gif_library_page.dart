@@ -35,39 +35,42 @@ class _GifLibraryPageState extends State<GifLibraryPage> {
               body:  list.length > 0? GridView.count(
                   crossAxisCount: 2,
                   children: List.generate(list.length, (index) {
-                    return GestureDetector(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Hero(
-                            tag: list[index].downsizedImage,
-                            child: CachedNetworkImage(imageUrl: list[index].downsizedImage, fit: BoxFit.fill,)
+                      return GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Hero(
+                              tag: list[index].downsizedImage,
+                              child: CachedNetworkImage(imageUrl: list[index].downsizedImage, fit: BoxFit.fill,)
+                          ),
                         ),
-                      ),
-                      onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
-                    );
-                  }
+                        onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
+                      );
+                    }
                   )
               )
-                  :Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height/4,),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.amber, width: 4),
-                    ),
-                    child: Image.asset("lib/assets/images/palpatine.gif"),
+                  :Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.amber, width: 4),
+                        ),
+                        child: Image.asset("lib/assets/images/palpatine.gif"),
+                      ),
+                      SizedBox(height: 20,),
+                      Text(
+                        "Sem Gifs salvos, o universo irá perecer nas mãos do Senhor do Mal... :(",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 20,),
-                  Text(
-                    "Sem Gifs salvos, o universo irá perecer nas mãos do Senhor do Mal :(",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
+                ),
               ),
             );
           }
