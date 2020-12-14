@@ -41,7 +41,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
     finalGifPage = 1;
     gifPage = 1;
     itemIndex = 0;
-    gifList = List<Gif>();
+    gifList.clear();
     lastGifPage = false;
   }
 

@@ -7,6 +7,16 @@ class IndexSuccess implements INavigationState{
   IndexSuccess({this.index});
 }
 
+class SearchSuccess implements INavigationState{
+  final String search;
+  SearchSuccess({this.search});
+}
+
+class SearchError implements INavigationState{
+  final StringSearchError stringSearchError;
+  SearchError(this.stringSearchError);
+}
+
 class IndError implements INavigationState{
   final IndexError indexError;
   IndError(this.indexError);

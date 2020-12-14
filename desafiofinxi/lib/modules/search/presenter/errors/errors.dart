@@ -10,3 +10,14 @@ class IndexError implements FailureView{
     return "IndexError: $message";
   }
 }
+
+class StringSearchError implements FailureView{
+  final dynamic message;
+  StringSearchError({this.message});
+
+  String toString() {
+    Object message = this.message;
+    if (message == null) return "IndexError";
+    return "IndexError: $message";
+  }
+}

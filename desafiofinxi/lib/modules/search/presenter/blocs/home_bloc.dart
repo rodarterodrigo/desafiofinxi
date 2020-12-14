@@ -32,8 +32,8 @@ class HomeBloc extends Bloc<HomeEvent, INavigationState>{
   }
 
   Stream<INavigationState> _mapSearchToState(MapSearchEvent event) async* {
-    if (event.search == null) yield IndError(IndexError(message: "Erro na resolução da string"));
+    if (event.search == null) yield SearchError(StringSearchError(message: "Erro na resolução da string"));
     this.search = event.search;
-    yield IndexSuccess(index: this.index);
+    yield SearchSuccess(search: this.search);
   }
 }
