@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:desafiofinxi/modules/search/domain/entities/gif.dart';
 import 'package:desafiofinxi/modules/search/presenter/blocs/search_gif_by_text_bloc.dart';
 import 'package:desafiofinxi/modules/search/presenter/routes/app_pages.dart';
 import 'package:desafiofinxi/modules/search/presenter/shared/settings/settings.dart';
@@ -12,7 +11,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 class CustomSearchDelegate extends SearchDelegate<String>{
   final GifBloc gifBloc = Modular.get<GifBloc>();
   final SearchHelper searchHelper = new SearchHelper();
-  List<Gif> auxList = new List<Gif>();
 
   @override
   String get searchFieldLabel => "Busque um gif!";
@@ -28,7 +26,6 @@ class CustomSearchDelegate extends SearchDelegate<String>{
         icon: Icon(Icons.clear),
         onPressed: (){
           query = "";
-          auxList.clear();
         },
       ),
     ];
@@ -61,7 +58,6 @@ class CustomSearchDelegate extends SearchDelegate<String>{
             case ConnectionState.done:
               if(state is ErrorState) return searchHelper.dataFail();
               final list = (state as LoadedSucessState).gifList;
-              auxList = list;
               return NotificationListener<ScrollNotification>(
                 child: list.length <1 ? Center(child: CircularProgressIndicator()): GridView.count(
                     crossAxisCount: 2,
@@ -113,7 +109,6 @@ class CustomSearchDelegate extends SearchDelegate<String>{
             case ConnectionState.done:
                 if(state is ErrorState) return searchHelper.dataFail();
                 final list = (state as LoadedSucessState).gifList;
-                auxList = list;
                 return NotificationListener<ScrollNotification>(
                   child: list.length <1 ? Center(child: CircularProgressIndicator()): GridView.count(
                       crossAxisCount: 2,
