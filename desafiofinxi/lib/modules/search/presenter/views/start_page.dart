@@ -19,7 +19,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void initState(){
-    gifBloc.add(SearchGifEvent(widget.searchGif, ItensPerPage, gifBloc.returnItemIndex(gifBloc.gifPage)));
+    gifBloc.add(SearchGifEvent(widget.searchGif, ItensPerPage, gifBloc.itemIndex));
     super.initState();
   }
 

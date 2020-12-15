@@ -79,8 +79,6 @@ class CustomSearchDelegate extends SearchDelegate<String>{
                 ),
                 onNotification: (value) => gifBloc.handleNotification(value, query),
               );
-              // }else
-              return searchHelper.dataFail();
           }
           return searchHelper.noResult();
         },
@@ -130,8 +128,6 @@ class CustomSearchDelegate extends SearchDelegate<String>{
                   ),
                   onNotification: (value) => gifBloc.handleNotification(value, query),
                 );
-              // }else
-                return searchHelper.dataFail();
           }
           return searchHelper.noResult();
         },
