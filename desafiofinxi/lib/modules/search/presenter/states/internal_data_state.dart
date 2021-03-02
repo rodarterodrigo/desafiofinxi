@@ -8,7 +8,6 @@ abstract class InternalDataState extends Equatable {
 
 class EmptyState extends InternalDataState {
   @override
-  // TODO: implement props
   List<Object> get props => null;
 }
 

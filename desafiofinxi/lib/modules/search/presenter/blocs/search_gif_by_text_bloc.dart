@@ -8,12 +8,11 @@ import 'package:desafiofinxi/modules/search/presenter/events/gif_event.dart';
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 
 class GifBloc extends Bloc<GifEvent, GifState> {
-
   final SearchGifByText usecase;
 
-  GifBloc(this.usecase):super(InitialState());
+  GifBloc(this.usecase) : super(InitialState());
 
-  List<Gif> _gifList = List<Gif>();
+  List<Gif> _gifList = <Gif>[];
   get gifList => _gifList;
   set gifList(value) => _gifList = value;
 
@@ -37,7 +36,7 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   get finalGifPage => this._finalGifPage;
   set finalGifPage(value) => this._finalGifPage = value;
 
-  void initialize(){
+  void initialize() {
     finalGifPage = 1;
     gifPage = 1;
     itemIndex = 0;
@@ -45,12 +44,14 @@ class GifBloc extends Bloc<GifEvent, GifState> {
     lastGifPage = false;
   }
 
-  bool handleNotification(ScrollNotification scrollInfo, String searchGif){
-    if(scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent){
-      if(!lastGifPage){
+  // ignore: missing_return
+  bool handleNotification(ScrollNotification scrollInfo, String searchGif) {
+    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+      if (!lastGifPage) {
         gifPage++;
         lastGifPage = true;
-        this.add(SearchGifEvent(searchGif, ItensPerPage, returnItemIndex(gifPage)));
+        this.add(
+            SearchGifEvent(searchGif, ItensPerPage, returnItemIndex(gifPage)));
       }
     }
   }
@@ -65,17 +66,21 @@ class GifBloc extends Bloc<GifEvent, GifState> {
   }
 
   Stream<GifState> _mapGifsToState(SearchGifEvent event) async* {
-   // yield LoadingState();
-    final result = (await this.usecase.searchGif(event.searchText, event.itensPerPage, event.indexItem));
+    // yield LoadingState();
+    final result = (await this
+        .usecase
+        .searchGif(event.searchText, event.itensPerPage, event.indexItem));
     yield result.fold((l) => ErrorState(l), (r) {
-      if(LoadedSucessState(r).gifList.length < ItensPerPage) lastGifPage = true; else lastGifPage = false;
-      if(gifPage == 1)
-        this.gifList = r;
+      if (LoadedSucessState(r).gifList.length < ItensPerPage)
+        lastGifPage = true;
       else
-        if(gifPage != finalGifPage){
-          this.gifList += r;
-          finalGifPage = gifPage;
-        }
+        lastGifPage = false;
+      if (gifPage == 1)
+        this.gifList = r;
+      else if (gifPage != finalGifPage) {
+        this.gifList += r;
+        finalGifPage = gifPage;
+      }
       return LoadedSucessState(gifList);
     });
   }

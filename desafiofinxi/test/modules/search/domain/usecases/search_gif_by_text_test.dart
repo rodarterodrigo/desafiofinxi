@@ -6,28 +6,30 @@ import 'package:desafiofinxi/modules/search/domain/usecases/search_gif_by_text.d
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class SearchRepositoryMock extends Mock implements IGifSearchRepository{}
+class SearchRepositoryMock extends Mock implements IGifSearchRepository {}
 
 final repository = SearchRepositoryMock();
 final usecase = SearchGifByText(repository);
 
-main(){
-
+main() {
   test("Deve retornar uma lista de gif's matadores", () async {
-    when(repository.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+    when(repository.searchGif(any, any, any))
+        .thenAnswer((realInvocation) async => Right(<Gif>[]));
     final result = await usecase.searchGif("jarjar", 20, 0);
     expect(result | null, isA<List<Gif>>());
   });
 
   test("Deve retornar uma lista de gif's matadores", () async {
-    when(repository.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+    when(repository.searchGif(any, any, any))
+        .thenAnswer((realInvocation) async => Right(<Gif>[]));
     final result = await usecase.searchGif("", 20, 0);
     expect(result | null, isA<List<Gif>>());
   });
 
-  test("Deve retornar uma exceção do tipo InvalidTextError", () async{
-    when(repository.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
+  test("Deve retornar uma exceção do tipo InvalidTextError", () async {
+    when(repository.searchGif(any, any, any))
+        .thenAnswer((realInvocation) async => Right(<Gif>[]));
     final result = await usecase.searchGif(null, 20, 0);
-    expect(result.fold(id,id), isA<InvalidTextError>());
+    expect(result.fold(id, id), isA<InvalidTextError>());
   });
 }

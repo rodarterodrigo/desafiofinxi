@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class Gif extends Equatable{
+// ignore: must_be_immutable
+class Gif extends Equatable {
   int id;
   final String giphyId;
   final String name;
@@ -9,17 +10,23 @@ class Gif extends Equatable{
   final String downsizedImage;
   final String url;
 
-  Gif({this.id, this.giphyId, this.name, this.author, this.originalImage, this.downsizedImage, this.url});
+  Gif(
+      {this.id,
+      this.giphyId,
+      this.name,
+      this.author,
+      this.originalImage,
+      this.downsizedImage,
+      this.url});
 
   @override
-  // TODO: implement props
   List<Object> get props => [
-    id,
-    giphyId,
-    name,
-    author,
-    originalImage,
-    downsizedImage,
-    url,
-  ];
+        id,
+        giphyId,
+        name,
+        author,
+        originalImage,
+        downsizedImage,
+        url,
+      ];
 }

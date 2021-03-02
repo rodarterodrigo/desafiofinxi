@@ -11,6 +11,5 @@ class SearchGifEvent extends GifEvent {
   const SearchGifEvent(this.searchText, this.itensPerPage, this.indexItem);
 
   @override
-  // TODO: implement props
   List<Object> get props => [searchText];
 }

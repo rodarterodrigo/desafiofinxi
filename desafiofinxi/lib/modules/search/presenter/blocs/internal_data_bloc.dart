@@ -7,7 +7,7 @@ import 'package:desafiofinxi/modules/search/presenter/events/internal_data_event
 import 'package:desafiofinxi/modules/search/presenter/states/internal_data_state.dart';
 import 'package:rxdart/rxdart.dart';
 
-class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState>{
+class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState> {
   final SaveSearchGif saveSearchGif;
   final UpdateSearchGif updateSearchGif;
   final DeleteGifById deleteGifById;
@@ -17,27 +17,31 @@ class InternalDataBloc extends Bloc<InternalDataEvents, InternalDataState>{
   set gif(value) => _gif = value;
 
   int _saveId = 0;
+  // ignore: unnecessary_getters_setters
   get saveId => _saveId;
+  // ignore: unnecessary_getters_setters
   set saveId(int value) => _saveId = value;
 
   int _updatedId = 0;
+  // ignore: unnecessary_getters_setters
   get updatedId => _updatedId;
+  // ignore: unnecessary_getters_setters
   set updatedId(int value) => _updatedId = value;
 
   int _deletedId = 0;
+  // ignore: unnecessary_getters_setters
   get deletedId => _deletedId;
+  // ignore: unnecessary_getters_setters
   set deletedId(int value) => _deletedId = value;
 
-  InternalDataBloc(this.saveSearchGif, this.updateSearchGif, this.deleteGifById) : super(InitialState());
+  InternalDataBloc(this.saveSearchGif, this.updateSearchGif, this.deleteGifById)
+      : super(InitialState());
 
   @override
-  Stream<InternalDataState> mapEventToState(InternalDataEvents event) async*{
-    if(event is SaveGifEvent)
-      yield* _mapSaveGifsToState(event);
-    if(event is UpdateGifEvent)
-      yield* _mapUpdateGifToState(event);
-    if(event is DeleteGifEvent)
-      yield* _mapDeleteGifToState(event);
+  Stream<InternalDataState> mapEventToState(InternalDataEvents event) async* {
+    if (event is SaveGifEvent) yield* _mapSaveGifsToState(event);
+    if (event is UpdateGifEvent) yield* _mapUpdateGifToState(event);
+    if (event is DeleteGifEvent) yield* _mapDeleteGifToState(event);
   }
 
   @override

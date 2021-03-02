@@ -8,25 +8,31 @@ import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class SearchGifByTextMock extends Mock implements SearchGifByText{}
+class SearchGifByTextMock extends Mock implements SearchGifByText {}
 
 final usecase = SearchGifByTextMock();
 final bloc = GifBloc(usecase);
 
-main(){
-  test("Deve retornar os estados em ordem.", (){
-    when(usecase.searchGif(any, any, any)).thenAnswer((realInvocation) async => Right(List<Gif>()));
-    expect(bloc, emitsInOrder([
-      isA<LoadedSucessState>(),
-    ]));
+main() {
+  test("Deve retornar os estados em ordem.", () {
+    when(usecase.searchGif(any, any, any))
+        .thenAnswer((realInvocation) async => Right(<Gif>[]));
+    expect(
+        bloc,
+        emitsInOrder([
+          isA<LoadedSucessState>(),
+        ]));
     bloc.add(SearchGifEvent("starwars", 20, 0));
   });
 
-  test("Deve retornar os estados em ordem.", (){
-    when(usecase.searchGif(any, any, any)).thenAnswer((realInvocation) async => Left(InvalidTextError()));
-    expect(bloc, emitsInOrder([
-      isA<ErrorState>(),
-    ]));
+  test("Deve retornar os estados em ordem.", () {
+    when(usecase.searchGif(any, any, any))
+        .thenAnswer((realInvocation) async => Left(InvalidTextError()));
+    expect(
+        bloc,
+        emitsInOrder([
+          isA<ErrorState>(),
+        ]));
     bloc.add(SearchGifEvent("starwars", 20, 0));
   });
 }

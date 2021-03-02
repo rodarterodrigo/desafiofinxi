@@ -6,6 +6,8 @@ import 'package:desafiofinxi/modules/search/presenter/shared/settings/settings.d
 import 'package:desafiofinxi/modules/search/presenter/states/gif_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+// ignore: must_be_immutable
 class StartPage extends StatefulWidget {
   String searchGif;
   StartPage({this.searchGif});
@@ -14,12 +16,12 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-
   final gifBloc = Modular.get<GifBloc>();
 
   @override
-  void initState(){
-    gifBloc.add(SearchGifEvent(widget.searchGif, ItensPerPage, gifBloc.itemIndex));
+  void initState() {
+    gifBloc
+        .add(SearchGifEvent(widget.searchGif, ItensPerPage, gifBloc.itemIndex));
     super.initState();
   }
 
@@ -27,62 +29,72 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: gifBloc.gifList.length > 0?
-        StreamBuilder(
-          initialData: LoadedSucessState,
-          stream: gifBloc,
-          builder: (context, snapshot){
-            final state = gifBloc.state;
-            if(state is ErrorState) return Center(child: Text(state.failureSearch.message),);
-            else {
-              final list = (state as LoadedSucessState).gifList;
-              return NotificationListener<ScrollNotification>(
-                child: list.length <1 ? Center(child: CircularProgressIndicator()): GridView.count(
-                    crossAxisCount: 2,
-                    children: List.generate(list.length, (index) {
-                        return GestureDetector(
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Hero(
-                              tag: list[index].downsizedImage,
-                              child: CachedNetworkImage(
-                                imageUrl: list[index].downsizedImage, fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          onTap: () => Modular.to.pushNamed(Routes.GIFDETAILPAGE,arguments: list[index]),
-                        );
-                      }
-                    )
-                ),
-                onNotification: (value) => gifBloc.handleNotification(value, widget.searchGif),
-              );
-            }
-          },
-        ):Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.amber, width: 4),
+        body: gifBloc.gifList.length > 0
+            ? StreamBuilder(
+                initialData: LoadedSucessState,
+                stream: gifBloc,
+                builder: (context, snapshot) {
+                  final state = gifBloc.state;
+                  if (state is ErrorState)
+                    return Center(
+                      child: Text(state.failureSearch.message),
+                    );
+                  else {
+                    final list = (state as LoadedSucessState).gifList;
+                    return NotificationListener<ScrollNotification>(
+                      child: list.length < 1
+                          ? Center(child: CircularProgressIndicator())
+                          : GridView.count(
+                              crossAxisCount: 2,
+                              children: List.generate(list.length, (index) {
+                                return GestureDetector(
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    child: Hero(
+                                      tag: list[index].downsizedImage,
+                                      child: CachedNetworkImage(
+                                        imageUrl: list[index].downsizedImage,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () => Modular.to.pushNamed(
+                                      Routes.GIFDETAILPAGE,
+                                      arguments: list[index]),
+                                );
+                              })),
+                      onNotification: (value) =>
+                          gifBloc.handleNotification(value, widget.searchGif),
+                    );
+                  }
+                },
+              )
+            : Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.amber, width: 4),
+                        ),
+                        child: Image.asset("lib/assets/images/palpatine.gif"),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Clique em busca para derrotar o senhor do mal!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Image.asset("lib/assets/images/palpatine.gif"),
                 ),
-                SizedBox(height: 20,),
-                Text(
-                  "Clique em busca para derrotar o senhor do mal!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.amber,
-                    fontSize: 24,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

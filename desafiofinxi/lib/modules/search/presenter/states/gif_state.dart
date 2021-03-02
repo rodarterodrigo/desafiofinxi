@@ -8,8 +8,7 @@ abstract class GifState extends Equatable {
 
 class EmptyState extends GifState {
   @override
-  // TODO: implement props
-  List<Object> get props => null;
+  List<Object> get props => [];
 }
 
 class InitialState extends GifState {
